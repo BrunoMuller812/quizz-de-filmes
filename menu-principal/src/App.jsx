@@ -4,11 +4,8 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="App">
+    <div className="content">
       <Header />
-      <main>
-        <h2>Conteúdo da Página</h2>
-      </main>
     </div>
   );
 }
