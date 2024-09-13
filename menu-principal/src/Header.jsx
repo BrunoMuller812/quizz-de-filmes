@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Header.css";
 
 const Header = () => {
@@ -16,7 +16,7 @@ const Header = () => {
         title="Logo"
         className="logo-icon-mobile"
       />
-      <h1>Quizz de filmes</h1>
+      <h1>CineQuizz</h1>
       <nav className="nav">
         <button
           className="menu-icon"
