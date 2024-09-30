@@ -3,7 +3,7 @@
   justify-content: space-around;
   align-items: center;
   text-align: center;
-  background-color: #230B47;
+  background-color: #230b47;
   gap: 70px;
 }
 
@@ -11,15 +11,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
 }
 
 .nav-menu {
   background-color: darkblue;
   width: 100%;
   position: absolute;
-  top: 70px;
-  left: 0;
+  top: 45.5px;
+  right: 0px;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.5s ease-out, opacity 0.5s ease;
