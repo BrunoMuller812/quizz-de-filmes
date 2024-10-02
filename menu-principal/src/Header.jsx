@@ -1,48 +1,81 @@
 import { useState } from "react";
 import "./Header.css";
 
-const Header = () => {
-  const [isMenuActive, setIsMenuActive] = useState(false);
+export default function Header() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const handleMenuToggle = () => {
-    setIsMenuActive(!isMenuActive);
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  const closeSidebar = () => {
+    setSidebarOpen(false);
   };
 
   return (
-    <header className="header">
-      <img
-        src="src/assets/logo-teste.avif"
-        alt="Logo"
-        title="Logo"
-        className="logo-icon-mobile"
-      />
-      <h1>CineQuizz</h1>
-      <nav className="nav">
-        <button
-          className="menu-icon"
-          onClick={handleMenuToggle}
-          aria-label="Menu"
-        >
+    <section id="headerPai">
+      <nav>
+        <img
+          src="src/assets/logo-teste.avif"
+          alt="Logo"
+          title="Logo"
+          className="logo-icon-mobile"
+        />
+        <div className="textos">
+          <h1 className="nome">CineQuizz</h1>
+        </div>
+
+        <div className="menuItens">
+          <ul className="minhaList">
+            <li>
+              <a href="#">Configurações</a>
+            </li>
+            <li>
+              <a href="#">Informações Da Conta</a>
+            </li>
+            <li>
+              <a href="#">Biblioteca De Filmes</a>
+            </li>
+            <li>
+              <a href="#">Pontuação</a>
+            </li>
+          </ul>
+        </div>
+
+        <button onClick={toggleSidebar} className="menuBarButton">
           <img
             src="src/assets/menu-icon.png"
             alt="Botão de menu"
             title="Menu"
+            className="menuBar"
           />
         </button>
-        <div className={`nav-menu ${isMenuActive ? "active" : ""}`}>
-          <p>
-            <a href="#">Informações da conta</a>
-          </p>
-          <p>
-            <a href="#">Pontuação</a>
-          </p>
-          <p>
-            <a href="#">Configurações</a>
-          </p>
-        </div>
       </nav>
-    </header>
-  );
-};
 
-export default Header;
+      <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
+        <ul className="dropdownMenu">
+          <li>
+            <a href="#" onClick={closeSidebar}>
+              Configurações
+            </a>
+          </li>
+          <li>
+            <a href="#" onClick={closeSidebar}>
+              Informações Da Conta
+            </a>
+          </li>
+          <li>
+            <a href="#" onClick={closeSidebar}>
+              Biblioteca De Filmes
+            </a>
+          </li>
+          <li>
+            <a href="#" onClick={closeSidebar}>
+              Pontuação
+            </a>
+          </li>
+        </ul>
+      </aside>
+    </section>
+  );
+}
