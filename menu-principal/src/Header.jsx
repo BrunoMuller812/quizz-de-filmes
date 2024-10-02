@@ -34,10 +34,10 @@ export default function Header() {
               <a href="#">Informações Da Conta</a>
             </li>
             <li>
-              <a href="#">Biblioteca De Filmes</a>
+              <a href="#">Pontuação</a>
             </li>
             <li>
-              <a href="#">Pontuação</a>
+              <a href="#">Sobre o aplicativo</a>
             </li>
           </ul>
         </div>
@@ -66,12 +66,12 @@ export default function Header() {
           </li>
           <li>
             <a href="#" onClick={closeSidebar}>
-              Biblioteca De Filmes
+              Pontuação
             </a>
           </li>
           <li>
             <a href="#" onClick={closeSidebar}>
-              Pontuação
+              Sobre o aplicativo
             </a>
           </li>
         </ul>

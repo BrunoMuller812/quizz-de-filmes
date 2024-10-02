@@ -1,7 +1,8 @@
 #headerPai {
   width: 100%;
   background-color: #230b47;
-  position: absolute;
+  position: relative;
+  z-index: 1;
 }
 
 nav {
@@ -51,6 +52,7 @@ nav {
   transition: max-height 0.5s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  position: absolute;
 }
 
 .sidebar.open {

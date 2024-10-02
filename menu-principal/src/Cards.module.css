@@ -1,0 +1,71 @@
+/* Mobile First - Estilos padrão para telas pequenas */
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+.card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  color: white;
+  padding: 20px;
+}
+
+#quizCard {
+  background-color: #ffaf00; /* Cor para o card do quiz */
+}
+
+#movieListCard {
+  background-color: #f47920; /* Cor para o card da lista de filmes */
+}
+
+#rankingCard {
+  background-color: #230b47; /* Cor para o card do ranking de filmes */
+}
+
+.card h2 {
+  font-size: 1.5rem; /* Tamanho menor de texto para mobile */
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 1rem;
+}
+
+/* Tablets e telas maiores */
+@media (min-width: 768px) {
+  .cardContainer {
+    flex-direction: row; /* Alinha os cards em uma linha horizontal */
+  }
+
+  .card h2 {
+    font-size: 2rem;
+  }
+
+  .card p {
+    font-size: 1.2rem;
+  }
+}
+
+/* Desktops */
+@media (min-width: 1024px) {
+  .cardContainer {
+    height: 50vh; /* Cards continuam preenchendo a tela */
+  }
+
+  .card h2 {
+    font-size: 2.5rem; /* Aumenta o texto para desktops */
+  }
+
+  .card p {
+    font-size: 1.5rem;
+  }
+}
