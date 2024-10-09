@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./Header.css";
+import "/src/css/Header.css";
 
 export default function Header() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -31,13 +31,13 @@ export default function Header() {
               <a href="#">Configurações</a>
             </li>
             <li>
-              <a href="#">Informações Da Conta</a>
+              <a href="#">Conta</a>
             </li>
             <li>
               <a href="#">Pontuação</a>
             </li>
             <li>
-              <a href="#">Sobre o aplicativo</a>
+              <a href="#">Sobre</a>
             </li>
           </ul>
         </div>

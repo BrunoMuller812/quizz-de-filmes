@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Cards.module.css"; // Usando CSS Modules
+import styles from "/src/css/HomeCSS/Cards.module.css";
 
 const Cards = () => {
   return (

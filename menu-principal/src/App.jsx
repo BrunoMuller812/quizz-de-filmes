@@ -1,14 +1,21 @@
 import React from "react";
-import Header from "./Header";
-import Principal from "./Principal";
-import "./App.css";
+import Home from "./components/Home/Home";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import "./css/App.css";
+import Qualquer from "./Qualquer";
 
 function App() {
   return (
-    <div className="content">
-      <Header />
-      <Principal />
-    </div>
+    <Router>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/qualquer">Qualquer</Link>
+      </nav>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/qualquer" element={<Qualquer />} />
+      </Routes>
+    </Router>
   );
 }
 

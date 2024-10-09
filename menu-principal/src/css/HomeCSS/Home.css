@@ -1,4 +1,4 @@
-.principal-content {
+.home-content {
   background-color: #ffa500;
 }
 
@@ -7,7 +7,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 30px;
+  padding-top: 30px;
   gap: 5px;
 }
 
