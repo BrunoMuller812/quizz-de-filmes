@@ -40,24 +40,24 @@ nav {
   background: none;
   border: none;
   cursor: pointer;
+  position: relative;
 }
 
 .sidebar {
   position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  max-height: 0;
+  top: 100%; 
+  right: -70%;
+  width: 50%;
+  height: 95vh;
   background-color: whitesmoke;
   overflow: hidden;
-  transition: max-height 0.5s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: right 0.7s ease; 
+  box-shadow: -4px 0 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  position: absolute;
 }
 
 .sidebar.open {
-  max-height: 300px;
+  right: 0;
 }
 
 .sidebar ul {
