@@ -3,6 +3,7 @@
   background-color: #230b47;
   position: relative;
   z-index: 1;
+  height: 10vh;
 }
 
 nav {
@@ -186,5 +187,91 @@ nav {
 
   .minhaList a:hover {
     color: #cf99d4;
+  }
+}
+
+/* Estilo do container da foto de perfil */
+.profile-container {
+  position: relative;
+  cursor: pointer;
+  margin-left: auto; /* Move a foto de perfil para a direita */
+  display: flex;
+  align-items: center;
+}
+
+/* Foto de perfil no header */
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Dropdown menu, inicialmente oculto */
+.dropdown {
+  position: absolute;
+  top: 60px; /* Ajuste conforme o tamanho do header */
+  right: 0;
+  background-color: whitesmoke;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: none;
+  z-index: 1001;
+}
+
+/* Dropdown quando ativo */
+.dropdown.open {
+  display: block;
+}
+
+/* Estilo dos itens do dropdown */
+.dropdownMenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.dropdownMenu li {
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdownMenu li:last-child {
+  border-bottom: none;
+}
+
+.dropdownMenu li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.dropdownMenu li a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Especificamente para o desktop */
+@media (min-width: 1280px) {
+  /* Oculta o botão de menu no desktop */
+  .menuBar {
+    display: none;
+  }
+
+  /* Oculta o sidebar no desktop */
+  aside {
+    display: none;
+  }
+
+  /* Exibe o dropdown menu na foto de perfil no desktop */
+  .profile-container {
+    display: flex;
+    align-items: center;
+    margin-right: 20px; /* Ajusta a posição para a direita */
   }
 }

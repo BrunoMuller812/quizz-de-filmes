@@ -58,7 +58,7 @@
 /* Desktops */
 @media (min-width: 1024px) {
   .cardContainer {
-    height: 50vh; /* Cards continuam preenchendo a tela */
+    height: 90vh; /* Cards continuam preenchendo a tela */
   }
 
   .card h2 {
