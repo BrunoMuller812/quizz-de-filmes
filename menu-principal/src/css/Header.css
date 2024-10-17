@@ -8,14 +8,15 @@
 
 nav {
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   gap: 30px;
   padding: 8px;
 }
 
 .textos {
-  display: flex;
+  display: none;
   align-items: center;
   font-size: 20px;
 }
@@ -32,6 +33,7 @@ nav {
 }
 
 .nome {
+  display: none;
   color: white;
   font-size: 25px;
 }
@@ -43,63 +45,15 @@ nav {
   position: relative;
 }
 
-.sidebar {
-  position: absolute;
-  top: 100%; 
-  right: -70%;
-  width: 50%;
-  height: 95vh;
-  background-color: whitesmoke;
-  overflow: hidden;
-  transition: right 0.7s ease; 
-  box-shadow: -4px 0 6px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-}
-
-.sidebar.open {
-  right: 0;
-}
-
-.sidebar ul {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-.sidebar ul li {
-  width: 100%;
-  border-bottom: 1px dashed azure;
-}
-
-.sidebar ul li a {
-  color: black;
-  font-size: 18px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: color 0.3s ease, background-color 0.3s ease;
-  display: block;
-  width: 100%;
-  padding: 15px 20px;
-}
-
-.sidebar ul li a:hover {
-  color: #575757;
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.sidebar ul li a:active {
-  background-color: #575757;
-}
-
 .menuItens {
   display: none;
 }
 
 @media (min-width: 768px) {
+  .textos {
+    display: flex;
+  }
+
   #headerPai nav {
     display: grid;
     grid-template-columns: 0.1fr 1fr 0.7fr;
@@ -111,20 +65,17 @@ nav {
   }
 
   .nome {
+    display: block;
     margin-left: 5px;
   }
 
-  .menuBarButton {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .menuBar {
-    margin-right: 20px;
-  }
 }
 
 @media (min-width: 1280px) {
+  .textos {
+    display: flex;
+  }
+
   #headerPai nav {
     display: grid;
     grid-template-columns: 0.4fr 0.7fr 1.3fr;
@@ -142,14 +93,6 @@ nav {
 
   aside {
     display: none;
-  }
-
-  .menuBar {
-    display: none;
-  }
-
-  .menuItens {
-    display: block;
   }
 
   .minhaList {
@@ -194,7 +137,6 @@ nav {
 .profile-container {
   position: relative;
   cursor: pointer;
-  margin-left: auto; /* Move a foto de perfil para a direita */
   display: flex;
   align-items: center;
 }
@@ -261,6 +203,10 @@ nav {
   /* Oculta o botão de menu no desktop */
   .menuBar {
     display: none;
+  }
+
+  .menu {
+    display: block;
   }
 
   /* Oculta o sidebar no desktop */
