@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "/src/css/Header.css";
-import HeaderMenu from "./components-sidebar/HeaderMenu"
+import HeaderMenu from "./components-sidebar/HeaderMenu";
 
 export default function Header() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -29,7 +29,14 @@ export default function Header() {
 
   return (
     <section id="headerPai">
-      <nav>        
+      <nav>
+        <HeaderMenu />
+
+        {/* Nome da aplicação */}
+        <div className="textos">
+          <h1 className="nome">CineQuizz</h1>
+        </div>
+
         <div className="profile-container" onClick={toggleDropdown}>
           <img
             src="src/assets/profile.png"
@@ -38,16 +45,7 @@ export default function Header() {
             className="profile-pic"
           />
         </div>
-
-        <HeaderMenu/>
-
-        {/* Nome da aplicação */}
-        <div className="textos">
-          <h1 className="nome">CineQuizz</h1>
-        </div>
       </nav>
-
-      
     </section>
   );
 }

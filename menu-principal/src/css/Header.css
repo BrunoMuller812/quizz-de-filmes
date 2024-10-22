@@ -7,8 +7,8 @@
 }
 
 nav {
+  height: 100%;
   display: flex;
-  flex-direction: row-reverse;
   align-items: center;
   justify-content: space-between;
   gap: 30px;
@@ -68,7 +68,6 @@ nav {
     display: block;
     margin-left: 5px;
   }
-
 }
 
 @media (min-width: 1280px) {
@@ -77,9 +76,10 @@ nav {
   }
 
   #headerPai nav {
-    display: grid;
-    grid-template-columns: 0.4fr 0.7fr 1.3fr;
-    gap: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 380px;
   }
 
   .logo-icon-mobile {
@@ -88,7 +88,7 @@ nav {
 
   .nome {
     margin-left: 10px;
-    font-size: 26px;
+    font-size: 40px;
   }
 
   aside {
@@ -143,8 +143,8 @@ nav {
 
 /* Foto de perfil no header */
 .profile-pic {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -196,28 +196,4 @@ nav {
 
 .dropdownMenu li a:hover {
   background-color: rgba(0, 0, 0, 0.05);
-}
-
-/* Especificamente para o desktop */
-@media (min-width: 1280px) {
-  /* Oculta o botão de menu no desktop */
-  .menuBar {
-    display: none;
-  }
-
-  .menu {
-    display: block;
-  }
-
-  /* Oculta o sidebar no desktop */
-  aside {
-    display: none;
-  }
-
-  /* Exibe o dropdown menu na foto de perfil no desktop */
-  .profile-container {
-    display: flex;
-    align-items: center;
-    margin-right: 20px; /* Ajusta a posição para a direita */
-  }
 }
