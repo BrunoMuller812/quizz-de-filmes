@@ -1,0 +1,117 @@
+/* MovieRanking.css */
+
+/* Container */
+.ranking_container {
+  padding: 1rem;
+}
+
+/* Título */
+#h1-ranking {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Lista dos filmes */
+.movies-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column; /* Mobile: exibe como lista */
+  gap: 1rem;
+}
+
+/* Item do filme */
+.movie-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: #f0f0f0;
+  padding: 0.5rem;
+  border-radius: 8px;
+  position: relative;
+}
+
+/* Círculo da numeração do ranking */
+.ranking-number {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 32px;
+  height: 32px;
+  background-color: #48148c;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* Imagem do pôster */
+.movie-poster {
+  width: 60px; /* Ajuste para mobile */
+  height: auto;
+  border-radius: 4px;
+}
+
+/* Informações do filme */
+.movie-info {
+  flex-grow: 1;
+}
+
+/* Título do filme */
+.movie-title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Nota do filme */
+.movie-rating {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Estilos de desktop */
+@media (min-width: 768px) {
+  /* Transformar lista em grid */
+  .movies-list {
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(200px, 1fr)
+    ); /* Configura uma grade */
+    gap: 1.5rem;
+  }
+
+  /* Itens em grid */
+  .movie-item {
+    flex-direction: column; /* Organiza verticalmente */
+    align-items: center;
+    padding: 1rem;
+    text-align: center; /* Centraliza o texto dentro do card */
+  }
+
+  /* Centraliza as informações dentro do card */
+  .movie-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Aumenta o pôster no desktop */
+  .movie-poster {
+    width: 100px;
+  }
+
+  /* Ajusta o título */
+  .movie-title {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+}

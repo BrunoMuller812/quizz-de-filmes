@@ -1,5 +1,7 @@
+// MovieRanking.jsx
 import React, { useState } from "react";
-import MovieFetcher from "./MovieFetcher"; 
+import MovieFetcher from "./MovieFetcher";
+import "/src/css/Ranking/MovieRanking.css";
 
 const MovieRanking = () => {
   const [movies, setMovies] = useState([]);
@@ -11,16 +13,25 @@ const MovieRanking = () => {
   };
 
   return (
-    <div>
-      <h1>Ranking dos 100 Melhores Filmes</h1>
+    <div className="ranking_container">
+      <h1 id="h1-ranking">Ranking dos 100 Melhores Filmes</h1>
       <MovieFetcher onFetchMovies={handleFetchMovies} />
       {loading ? (
         <div>Carregando...</div>
       ) : (
-        <ul>
-          {movies.slice(0, 100).map((movie) => (
-            <li key={movie.id}>
-              {movie.title} - Nota: {movie.vote_average}
+        <ul className="movies-list">
+          {movies.slice(0, 100).map((movie, index) => (
+            <li key={movie.id} className="movie-item">
+              <div className="ranking-number">{index + 1}</div>
+              <img
+                src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                alt={movie.title}
+                className="movie-poster"
+              />
+              <div className="movie-info">
+                <h2 className="movie-title">{movie.title}</h2>
+                <p className="movie-rating">Nota: {movie.vote_average}</p>
+              </div>
             </li>
           ))}
         </ul>
