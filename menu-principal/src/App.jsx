@@ -2,8 +2,9 @@ import React from "react";
 import Home from "./components/Home/Home";
 import Configuracoes from "./components/Configuracoes/Configuracoes";
 import Header from "./components/Header";
+import MovieRanking from "./components/Ranking/MovieRanking";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { ThemeProvider, useTheme } from "/Context/ThemeContext";
+import { ThemeProvider, useTheme } from "../Context/ThemeContext";
 import "./css/App.css";
 
 function App() {
@@ -12,11 +13,11 @@ function App() {
   return (
     <div className={`app ${theme}`}>
       <Router>
-        {/* Adicionando o Header com as rotas */}
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/configuracoes" element={<Configuracoes />} />
+          <Route path="/ranking" element={<MovieRanking />} />{" "}
         </Routes>
       </Router>
     </div>

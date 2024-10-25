@@ -13,7 +13,7 @@ const Sidebar = ({ active }) => {
     <Container sidebar={active}>
       <FaTimes onClick={closeSidebar} />
       <Content>
-        <Link to="../Home" onClick={closeSidebar}>
+        <Link to="/" onClick={closeSidebar}>
           {" "}
           {/* Link para Início */}
           <SidebarItem Icon={FaHome} Text="Início" />
