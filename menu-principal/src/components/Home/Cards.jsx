@@ -6,7 +6,7 @@ const Cards = () => {
   return (
     <div className={styles.cardContainer}>
       <div className={styles.card} id="movieListCard">
-        <Link to="/minha-lista">
+        <Link to="/movielist">
           <h2>Minha Lista de Filmes</h2>
         </Link>
         <p>Veja sua lista personalizada de filmes.</p>
@@ -19,8 +19,6 @@ const Cards = () => {
       </div>
       <div className={styles.card} id="rankingCard">
         <Link to="/ranking">
-          {" "}
-          {/* Link para a rota /ranking */}
           <h2>Ranking de Filmes</h2>
         </Link>
         <p>Confira os filmes mais bem avaliados.</p>
