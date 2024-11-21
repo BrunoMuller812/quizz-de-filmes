@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#root {
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app.light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.app.dark {
+  background-color: #000000;
+  color: #ffffff;
+}

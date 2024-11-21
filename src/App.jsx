@@ -1,0 +1,62 @@
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from "react-router-dom";
+import Home from "./components/Home/Home";
+import Configuracoes from "./components/Configuracoes/Configuracoes";
+import Header from "./components/Header";
+import MovieRanking from "./components/Ranking/MovieRanking";
+import MovieList from "./components/MovieList/MovieList";
+import LoginPage from "./components/LoginPage/LoginPage";
+import { AuthProvider, useAuth } from "../Context/AuthContext";
+import { ThemeProvider, useTheme } from "../Context/ThemeContext";
+import "./css/App.css";
+
+function App() {
+  const { theme } = useTheme();
+
+  return (
+    <div className={`app ${theme}`}>
+      <Router>
+        <AuthProvider>
+          <Main />
+        </AuthProvider>
+      </Router>
+    </div>
+  );
+}
+
+function Main() {
+  const location = useLocation();
+  const { isLoggedIn } = useAuth();
+
+  useEffect(() => {
+    // Marca como primeira visita para exibir a página de login apenas uma vez
+    if (!localStorage.getItem("firstVisit")) {
+      localStorage.setItem("firstVisit", "true");
+    }
+  }, []);
+
+  if (!isLoggedIn && location.pathname !== "/" && localStorage.getItem("firstVisit") === "true") {
+    return <Navigate to="/" />;
+  }
+
+  return (
+    <>
+      {location.pathname !== "/" && <Header />}
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/configuracoes" element={<Configuracoes />} />
+        <Route path="/ranking" element={<MovieRanking />} />
+        <Route path="/movielist" element={<MovieList />} />
+      </Routes>
+    </>
+  );
+}
+
+export default function WrappedApp() {
+  return (
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
+  );
+}
