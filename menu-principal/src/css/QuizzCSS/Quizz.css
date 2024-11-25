@@ -1,0 +1,98 @@
+/* Quiz.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+}
+
+.quiz-container {
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f9;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 100%;
+  height: calc(90vh - 10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 800px;
+  margin: auto;
+  margin-top: 10px;
+  box-shadow: 0px 10px 10px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.quiz-container h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.quiz-container h2 {
+  font-size: 1.8rem;
+  color: #444;
+  margin-bottom: 1.5rem;
+}
+
+.quiz-container button {
+  font-size: 1.1rem;
+  background-color: #1e90ff;
+  color: white;
+  padding: 1rem 2rem;
+  margin: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s;
+  width: 80%;
+  max-width: 400px;
+}
+
+.quiz-container button:hover {
+  background-color: #4682b4;
+  transform: scale(1.05);
+}
+
+.quiz-container button:active {
+  background-color: #5f9ea0;
+  transform: scale(1);
+}
+
+.quiz-container button.correct {
+  background-color: #4caf50; /* Verde */
+}
+
+.quiz-container button.incorrect {
+  background-color: #f44336; /* Vermelho */
+}
+
+.quiz-container p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-top: 1.5rem;
+}
+
+.quiz-container .score {
+  font-size: 1.4rem;
+  color: #2e8b57;
+  margin-top: 2rem;
+}
+
+.quiz-container .loading {
+  font-size: 1.5rem;
+  color: #ffa500;
+}
+
+.quiz-container .finish-message {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #333;
+  margin-top: 2rem;
+}

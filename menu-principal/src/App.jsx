@@ -3,6 +3,7 @@ import Home from "./components/Home/Home";
 import Configuracoes from "./components/Configuracoes/Configuracoes";
 import Header from "./components/Header";
 import MovieRanking from "./components/Ranking/MovieRanking";
+import Quiz from "./components/Quiz/Quiz";
 import MovieList from "./components/MovieList/MovieList";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ThemeProvider, useTheme } from "../Context/ThemeContext";
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/configuracoes" element={<Configuracoes />} />
           <Route path="/ranking" element={<MovieRanking />} />
+          <Route path="/quiz" element={<Quiz />} />
           <Route path="/movielist" element={<MovieList />} />
         </Routes>
       </Router>
