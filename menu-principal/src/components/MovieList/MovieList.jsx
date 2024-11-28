@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { useMovies } from "../../../Context/MoviesContext";
 import "/src/css/ListCSS/MovieList.css";
 
 const MovieList = () => {
   const apiKey = "f024c47f63aa01f439f0f7fc51d6d0d8";
-  const [movies, setMovies] = useState([]); // Estado local para os filmes
+  const { movies, addMovie, removeMovie } = useMovies(); // Acessar estado global
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
@@ -18,19 +19,6 @@ const MovieList = () => {
     } else {
       setSuggestions([]);
     }
-  };
-
-  const handleSearch = (movie) => {
-    if (!movies.some((m) => m.id === movie.id)) {
-      // Impede duplicatas
-      setMovies((prevMovies) => [...prevMovies, movie]);
-    }
-    setQuery("");
-    setSuggestions([]);
-  };
-
-  const removeMovie = (id) => {
-    setMovies((prevMovies) => prevMovies.filter((movie) => movie.id !== id));
   };
 
   return (
@@ -51,7 +39,11 @@ const MovieList = () => {
           <li
             key={movie.id}
             className="movie-item"
-            onClick={() => handleSearch(movie)}
+            onClick={() => {
+              addMovie(movie); // Adicionar ao estado global
+              setQuery("");
+              setSuggestions([]);
+            }}
           >
             <img
               src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
