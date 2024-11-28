@@ -6,9 +6,10 @@ const Quiz = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [score, setScore] = useState(0);
-  const [answered, setAnswered] = useState(false); // Novo estado para controlar se a resposta foi dada
+  const [answered, setAnswered] = useState(false);
+  const [userAnswers, setUserAnswers] = useState([]);
 
-  const apiKey = "f024c47f63aa01f439f0f7fc51d6d0d8"; // Substitua pela sua chave de API do TheMovieDB
+  const apiKey = "f024c47f63aa01f439f0f7fc51d6d0d8";
 
   const isAsianName = (name) => {
     const asianRegex = /[\uAC00-\uD7AF\u4E00-\u9FFF\u3040-\u30FF\uFF66-\uFF9F]/;
@@ -21,11 +22,11 @@ const Quiz = () => {
         `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR&page=1`
       );
       const movieData = await movieResponse.json();
-      const movies = movieData.results.slice(0, 20); // Pegue 20 filmes para ter uma boa diversidade
+      const movies = movieData.results.slice(0, 20);
 
       const shuffledMovies = movies
         .sort(() => Math.random() - 0.5)
-        .slice(0, 10); // Pegue 10 filmes aleatórios após o embaralhamento
+        .slice(0, 10);
 
       const questionsData = await Promise.all(
         shuffledMovies.map(async (movie) => {
@@ -99,7 +100,18 @@ const Quiz = () => {
       setScore(score + 1);
     }
 
-    setAnswered(true); // Marca a resposta como dada
+    setAnswered(true);
+
+    // Armazenar a resposta do usuário
+    setUserAnswers([
+      ...userAnswers,
+      {
+        question: currentQuestion.question,
+        correctAnswer: currentQuestion.correctAnswer,
+        userAnswer: selectedAnswer,
+        isCorrect,
+      },
+    ]);
   };
 
   const nextQuestion = () => {
@@ -118,7 +130,30 @@ const Quiz = () => {
   if (currentQuestionIndex >= questions.length) {
     return (
       <div className="finish-message">
-        Parabéns! Sua pontuação final foi: {score}/{questions.length}
+        <h2>
+          Parabéns! Sua pontuação final foi: {score}/{questions.length}
+        </h2>
+        <h3>Respostas do Quiz:</h3>
+        {questions.map((question, index) => (
+          <div key={index} className="question-summary">
+            <p>
+              <strong>Pergunta {index + 1}:</strong> {question.question}
+            </p>
+            <p>
+              <strong>Resposta correta:</strong> {question.correctAnswer}
+            </p>
+            <p>
+              <strong>Sua resposta:</strong> {userAnswers[index]?.userAnswer}
+            </p>
+            <p
+              className={
+                userAnswers[index]?.isCorrect ? "correct" : "incorrect"
+              }
+            >
+              {userAnswers[index]?.isCorrect ? "Certo!" : "Errado"}
+            </p>
+          </div>
+        ))}
       </div>
     );
   }
