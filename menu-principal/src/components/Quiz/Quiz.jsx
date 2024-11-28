@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "/src/css/QuizzCSS/Quizz.css";
+import LoadingScreen from "./LoadingScreen";
 
 const Quiz = () => {
   const [questions, setQuestions] = useState([]);
@@ -16,17 +17,36 @@ const Quiz = () => {
     return asianRegex.test(name);
   };
 
+  // Filtra apenas filmes dos países desejados
+  const isExcludedMovie = (originalLanguage) => {
+    const allowedLanguages = ["pt", "en", "fr", "es", "it", "de"];
+    return !allowedLanguages.includes(originalLanguage);
+  };
+
+  const shuffleArray = (array) => array.sort(() => Math.random() - 0.5);
+
   const fetchQuestions = async () => {
     try {
-      const movieResponse = await fetch(
-        `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR&page=1`
-      );
-      const movieData = await movieResponse.json();
-      const movies = movieData.results.slice(0, 20);
+      let movies = [];
 
-      const shuffledMovies = movies
-        .sort(() => Math.random() - 0.5)
-        .slice(0, 10);
+      // Buscar filmes de páginas aleatórias
+      for (let i = 1; i <= 3; i++) {
+        const randomPage = Math.floor(Math.random() * 500) + 1; // Páginas 1 a 500
+        const movieResponse = await fetch(
+          `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR&page=${randomPage}`
+        );
+        const movieData = await movieResponse.json();
+
+        movies = [
+          ...movies,
+          ...movieData.results.filter(
+            (movie) => !isExcludedMovie(movie.original_language)
+          ),
+        ];
+      }
+
+      // Selecionar 10 filmes aleatórios
+      const shuffledMovies = shuffleArray(movies).slice(0, 10);
 
       const questionsData = await Promise.all(
         shuffledMovies.map(async (movie) => {
@@ -57,31 +77,49 @@ const Quiz = () => {
 
           const questionTypes = [
             {
-              question: `Qual o diretor do filme "${movie.title}"?`,
+              question: `Qual o diretor do filme \"${movie.title}\"?`,
               correctAnswer: director || "Desconhecido",
-              incorrectAnswers: randomPeople
-                .filter((name) => name !== director)
-                .slice(0, 3),
-            },
-            {
-              question: `Qual o gênero principal do filme "${movie.title}"?`,
-              correctAnswer: genres[0] || "Desconhecido",
-              incorrectAnswers: ["Ação", "Romance", "Terror"].filter(
-                (g) => g !== genres[0]
+              incorrectAnswers: shuffleArray(
+                randomPeople.filter((name) => name !== director).slice(0, 3)
               ),
             },
             {
-              question: `Qual destes atores atuou no filme "${movie.title}"?`,
+              question: `Qual o gênero principal do filme \"${movie.title}\"?`,
+              correctAnswer: genres[0] || "Desconhecido",
+              incorrectAnswers: shuffleArray(
+                ["Ação", "Romance", "Terror"].filter(
+                  (g) => g !== genres[0]
+                )
+              ),
+            },
+            {
+              question: `Qual destes atores atuou no filme \"${movie.title}\"?`,
               correctAnswer: cast[0] || "Desconhecido",
-              incorrectAnswers: randomPeople
-                .filter((name) => !cast.includes(name))
-                .slice(0, 3),
+              incorrectAnswers: shuffleArray(
+                randomPeople.filter((name) => !cast.includes(name)).slice(0, 3)
+              ),
+            },
+            {
+              question: `Em que ano o filme \"${movie.title}\" foi lançado?`,
+              correctAnswer: String(
+                detailsData.release_date?.split("-")[0] || "Desconhecido"
+              ),
+              incorrectAnswers: shuffleArray([ 
+                String(parseInt(detailsData.release_date?.split("-")[0]) - 1 || "1999"),
+                String(parseInt(detailsData.release_date?.split("-")[0]) - 2 || "2000"),
+                String(parseInt(detailsData.release_date?.split("-")[0]) + 1 || "2021"),
+              ]),
             },
           ];
 
-          return questionTypes[
-            Math.floor(Math.random() * questionTypes.length)
-          ];
+          const selectedQuestion =
+            questionTypes[Math.floor(Math.random() * questionTypes.length)];
+          selectedQuestion.options = shuffleArray([
+            ...selectedQuestion.incorrectAnswers,
+            selectedQuestion.correctAnswer,
+          ]);
+
+          return selectedQuestion;
         })
       );
 
@@ -102,7 +140,6 @@ const Quiz = () => {
 
     setAnswered(true);
 
-    // Armazenar a resposta do usuário
     setUserAnswers([
       ...userAnswers,
       {
@@ -124,51 +161,49 @@ const Quiz = () => {
   }, []);
 
   if (loading) {
-    return <div className="loading">Carregando perguntas...</div>;
+    return <LoadingScreen  imageSrc='src/assets/logo-desktop.png'/>;
   }
 
   if (currentQuestionIndex >= questions.length) {
     return (
-      <div className="finish-message">
-        <h2>
-          Parabéns! Sua pontuação final foi: {score}/{questions.length}
-        </h2>
-        <h3>Respostas do Quiz:</h3>
-        {questions.map((question, index) => (
-          <div key={index} className="question-summary">
-            <p>
-              <strong>Pergunta {index + 1}:</strong> {question.question}
-            </p>
-            <p>
-              <strong>Resposta correta:</strong> {question.correctAnswer}
-            </p>
-            <p>
-              <strong>Sua resposta:</strong> {userAnswers[index]?.userAnswer}
-            </p>
-            <p
-              className={
-                userAnswers[index]?.isCorrect ? "correct" : "incorrect"
-              }
-            >
-              {userAnswers[index]?.isCorrect ? "Certo!" : "Errado"}
-            </p>
-          </div>
-        ))}
+      <div className="quiz-summary">
+        <h1>Resumo do Quiz</h1>
+        <h2>Sua pontuação final foi: {score}/{questions.length}</h2>
+        <div className="summary-container">
+          {questions.map((question, index) => (
+            <div key={index} className="summary-question">
+              <h3>Pergunta {index + 1}:</h3>
+              <p className="question-text">{question.question}</p>
+              <p>
+                <strong>Resposta correta:</strong> {question.correctAnswer}
+              </p>
+              <p>
+                <strong>Sua resposta:</strong> {userAnswers[index]?.userAnswer}
+              </p>
+              <p
+                className={`answer-status ${
+                  userAnswers[index]?.isCorrect ? "correct" : "incorrect"
+                }`}
+              >
+                {userAnswers[index]?.isCorrect ? "Certo!" : "Errado"}
+              </p>
+            </div>
+          ))}
+        </div>
+        <button onClick={() => window.location.reload()} className="restart-quiz">
+          Reiniciar Quiz
+        </button>
       </div>
     );
   }
 
   const currentQuestion = questions[currentQuestionIndex];
-  const options = [
-    ...currentQuestion.incorrectAnswers,
-    currentQuestion.correctAnswer,
-  ].sort(() => Math.random() - 0.5);
 
   return (
     <div className="quiz-container">
       <h1>Quiz de Filmes</h1>
       <h2>{currentQuestion.question}</h2>
-      {options.map((option, index) => (
+      {currentQuestion.options.map((option, index) => (
         <button
           key={index}
           onClick={() => handleAnswer(option)}
@@ -176,7 +211,9 @@ const Quiz = () => {
             answered
               ? option === currentQuestion.correctAnswer
                 ? "correct"
-                : "incorrect"
+                : option === userAnswers[currentQuestionIndex]?.userAnswer
+                ? "incorrect"
+                : ""
               : ""
           }
         >
