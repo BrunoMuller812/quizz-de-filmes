@@ -4,10 +4,13 @@
   flex-direction: column;
   height: 100vh;
   width: 100%;
+  align-items: center;
 }
 
 .card {
-  flex: 1;
+  background-color: white;
+  color: black;
+  /* Ajustado aqui para o texto ficar preto */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,34 +18,43 @@
   text-align: center;
   cursor: pointer;
   transition: transform 0.3s ease, background-color 0.3s ease;
-  color: white;
   padding: 20px;
+  width: 90%;
+  /* Ajustado para ser proporcional à tela */
 }
 
-.quizCard {
-  background-color: #ffaf00;
-  /* Cor para o card do quiz */
+.cardsIMG {
+  width: 100%;
 }
 
-.movieListCard {
-  border: 1px solid red;
-  background-color: #f47920;
-  /* Cor para o card da lista de filmes */
+.cardDescription {
+  margin: 10px;
+  text-align: left;
 }
 
-.rankingCard {
-  background-color: #230b47;
-  /* Cor para o card do ranking de filmes */
+.linkContainer {
+  padding: 0;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 20px;
 }
 
 .card h2 {
+  width: 100%;
+  border-radius: 8px 8px 0 0;
   font-size: 1.5rem;
-  /* Tamanho menor de texto para mobile */
-  margin-bottom: 10px;
+  color: black;
+  /* Definido para o título ficar preto */
 }
 
-.card p {
+.card span {
   font-size: 1rem;
+  color: black;
+  /* Cor preta para o span */
 }
 
 /* Tablets e telas maiores */
@@ -56,7 +68,7 @@
     font-size: 2rem;
   }
 
-  .card p {
+  .card span {
     font-size: 1.2rem;
   }
 }
@@ -73,7 +85,24 @@
     /* Aumenta o texto para desktops */
   }
 
-  .card p {
-    font-size: 1.5rem;
+  .card span {
+    font-size: 1.2rem;
+    font-weight: bold;
   }
+
+  .card p {
+    font-size: 16px;
+  }
+}
+
+/* Nova classe para o fundo da página */
+.backgroundContainer {
+  background-image: url('/src/assets/backgroundHome.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

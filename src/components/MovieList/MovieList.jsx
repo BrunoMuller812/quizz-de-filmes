@@ -1,11 +1,36 @@
-import React, { useState } from "react";
-import "/src/css/ListCSS/MovieList.css";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../../../Context/AuthContext";
+import Comments from "./Comments";
+import styles from "/src/css/ListCSS/MovieList.module.css";
 
 const MovieList = () => {
   const apiKey = "f024c47f63aa01f439f0f7fc51d6d0d8";
-  const [movies, setMovies] = useState([]); // Estado local para os filmes
+  const { currentUser } = useAuth();
+  const [movies, setMovies] = useState(() =>
+    JSON.parse(localStorage.getItem(`${currentUser}-movies`)) || []
+  );
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [ratings, setRatings] = useState(() =>
+    JSON.parse(localStorage.getItem(`${currentUser}-ratings`)) || {}
+  );
+  const [randomMovies, setRandomMovies] = useState([]);
+
+  const fetchRandomMovies = () => {
+    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`)
+      .then((response) => response.json())
+      .then((data) => {
+        const filteredMovies = data.results.filter(
+          (movie) => !movies.some((m) => m.id === movie.id)
+        );
+        setRandomMovies(filteredMovies.slice(0, 12)); // 4 linhas com 3 filmes cada
+      })
+      .catch((error) => console.error("Erro ao buscar filmes populares:", error));
+  };
+
+  useEffect(() => {
+    fetchRandomMovies();
+  }, [movies]);
 
   const searchMovies = (query) => {
     if (query) {
@@ -20,25 +45,38 @@ const MovieList = () => {
     }
   };
 
-  const handleSearch = (movie) => {
+  const handleAddMovie = (movie) => {
     if (!movies.some((m) => m.id === movie.id)) {
-      // Impede duplicatas
-      setMovies((prevMovies) => [...prevMovies, movie]);
+      const updatedMovies = [...movies, movie];
+      setMovies(updatedMovies);
+      localStorage.setItem(
+        `${currentUser}-movies`,
+        JSON.stringify(updatedMovies)
+      );
     }
-    setQuery("");
-    setSuggestions([]);
+    setRandomMovies((prevMovies) =>
+      prevMovies.filter((randomMovie) => randomMovie.id !== movie.id)
+    );
   };
 
   const removeMovie = (id) => {
-    setMovies((prevMovies) => prevMovies.filter((movie) => movie.id !== id));
+    const updatedMovies = movies.filter((movie) => movie.id !== id);
+    setMovies(updatedMovies);
+    localStorage.setItem(`${currentUser}-movies`, JSON.stringify(updatedMovies));
+  };
+
+  const setMovieRating = (id, rating) => {
+    const updatedRatings = { ...ratings, [id]: rating };
+    setRatings(updatedRatings);
+    localStorage.setItem(`${currentUser}-ratings`, JSON.stringify(updatedRatings));
   };
 
   return (
-    <div className="ranking_container">
-      <h1 id="h1-ranking">Minha Lista de Filmes</h1>
+    <div className={styles.container}>
+      <h1>Minha Lista de Filmes</h1>
       <input
         type="text"
-        className="search-input"
+        className={styles.searchInput}
         value={query}
         onChange={(e) => {
           setQuery(e.target.value);
@@ -46,51 +84,87 @@ const MovieList = () => {
         }}
         placeholder="Buscar filmes..."
       />
-      <ul className="movies-list">
-        {suggestions.slice(0, 5).map((movie) => (
-          <li
+
+      {query && (
+        <div className={styles.movieGrid}>
+          {suggestions.map((movie) => (
+            <div
+              key={movie.id}
+              className={styles.movieItem}
+              onClick={() => handleAddMovie(movie)}
+            >
+              <img
+                src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                alt={movie.title}
+                className={styles.moviePoster}
+              />
+              <h2>{movie.title}</h2>
+              <p>Ano: {new Date(movie.release_date).getFullYear()}</p>
+              <p>Nota: {movie.vote_average}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {movies.length > 0 && (
+        <>
+          <h2>Filmes Adicionados</h2>
+          <div className={styles.movieGrid}>
+            {movies.map((movie) => (
+              <div key={movie.id} className={styles.movieItem}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                  alt={movie.title}
+                  className={styles.moviePoster}
+                />
+                <h2>{movie.title}</h2>
+                <p>Ano: {new Date(movie.release_date).getFullYear()}</p>
+                <p>Nota: {movie.vote_average}</p>
+                <div className={styles.starRating}>
+                  {Array.from({ length: 5 }, (_, i) => (
+                    <span
+                      key={i}
+                      className={
+                        i < (ratings[movie.id] || 0)
+                          ? styles.filledStar
+                          : styles.emptyStar
+                      }
+                      onClick={() => setMovieRating(movie.id, i + 1)}
+                    >
+                      ★
+                    </span>
+                  ))}
+                </div>
+                <Comments movieId={movie.id} currentUser={currentUser} />
+                <button
+                  className={styles.removeButton}
+                  onClick={() => removeMovie(movie.id)}
+                >
+                  Remover
+                </button>
+              </div>
+            ))}
+          </div>
+          <hr className={styles.divider} />
+        </>
+      )}
+
+      <h2>Filmes Aleatórios</h2>
+      <div className={styles.movieGrid}>
+        {randomMovies.map((movie) => (
+          <div
             key={movie.id}
-            className="movie-item"
-            onClick={() => handleSearch(movie)}
+            className={styles.movieItem}
+            onClick={() => handleAddMovie(movie)}
           >
             <img
               src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
               alt={movie.title}
-              className="movie-poster"
+              className={styles.moviePoster}
             />
-            <div className="movie-info">
-              <h2 className="movie-title">{movie.title}</h2>
-              <p className="movie-release">
-                Ano: {new Date(movie.release_date).getFullYear()}
-              </p>
-              <p className="movie-rating">Nota: {movie.vote_average}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
-
-      <div className="movies-list">
-        {movies.length === 0 ? <p>Nenhum filme na lista.</p> : null}
-        {movies.map((movie) => (
-          <div key={movie.id} className="movie-item">
-            <img
-              src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-              alt={movie.title}
-              className="movie-poster"
-            />
-            <div className="movie-info">
-              <h2 className="movie-title">{movie.title}</h2>
-              <p className="movie-release">
-                Ano: {new Date(movie.release_date).getFullYear()}
-              </p>
-              <p className="movie-rating">Nota: {movie.vote_average}</p>
-              <button
-                className="remove-button"
-                onClick={() => removeMovie(movie.id)}
-              >
-                Remover
-              </button>
-            </div>
+            <h2>{movie.title}</h2>
+            <p>Ano: {new Date(movie.release_date).getFullYear()}</p>
+            <p>Nota: {movie.vote_average}</p>
           </div>
         ))}
       </div>

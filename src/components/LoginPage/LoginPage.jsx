@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../Context/AuthContext";
+import { useAuth } from "../../../Context/AuthContext";
 import styles from "/src/css/loginPageCSS/loginPage.module.css";
 import logo from "/src/assets/logo-desktop.png";
 
@@ -47,7 +47,7 @@ const LoginPage = () => {
                 <h2>{isSignUp ? "Sign Up" : "Sign In"}</h2>
                 <input
                     type="text"
-                    placeholder="Username"
+                    placeholder="Usuário"
                     className={styles.inputField}
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -56,7 +56,7 @@ const LoginPage = () => {
                 {isSignUp && (
                     <input
                         type="email"
-                        placeholder="Email"
+                        placeholder="E-mail"
                         className={styles.inputField}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -65,7 +65,7 @@ const LoginPage = () => {
                 )}
                 <input
                     type="password"
-                    placeholder="Password"
+                    placeholder="Senha"
                     className={styles.inputField}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -77,8 +77,8 @@ const LoginPage = () => {
                 </button>
                 <p onClick={() => setIsSignUp(!isSignUp)} className={styles.switchMode}>
                     {isSignUp
-                        ? "Already have an account? Sign In"
-                        : "Don't have an account? Sign Up"}
+                        ? "Já tem uma conta? Sign In"
+                        : "Não tem uma conta? Sign Up"}
                 </p>
             </form>
         </div>

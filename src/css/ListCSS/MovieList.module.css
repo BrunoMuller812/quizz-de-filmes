@@ -1,0 +1,76 @@
+.container {
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  min-height: 100vh;
+  /* Altura mínima dinâmica */
+}
+
+.searchInput {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.movieGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.divider {
+  margin: 20px 0;
+  border: 0;
+  border-top: 2px solid #ccc;
+}
+
+.movieItem {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  text-align: center;
+}
+
+.movieItem:hover {
+  transform: scale(1.05);
+}
+
+.moviePoster {
+  border-radius: 8px;
+  width: 100%;
+  /* Ajusta o tamanho da imagem ao contêiner */
+  height: auto;
+  /* Mantém a proporção */
+  max-height: 300px;
+  /* Limita a altura para evitar esticar demais */
+  object-fit: cover;
+  /* Garante que a imagem não vaze */
+}
+
+.movieList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 200px);
+  /* Largura fixa */
+  gap: 15px;
+  justify-content: center;
+  /* Centraliza os itens */
+}
+
+.starRating span {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.filledStar {
+  color: gold;
+}
+
+.emptyStar {
+  color: #ccc;
+}
