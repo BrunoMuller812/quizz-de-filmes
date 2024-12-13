@@ -1,19 +1,15 @@
 import React, { useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from "react-router-dom";
 import Home from "./components/Home/Home";
 import SettingsPage from "./components/SettingsPage/settingsPage";
 import AccountPage from "./components/SettingsPage/Account/account";
+import Configuracoes from "./components/SettingsPage/Configurations/configurations";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import MovieRanking from "./components/Ranking/MovieRanking";
 import MovieList from "./components/MovieList/MovieList";
 import LoginPage from "./components/LoginPage/LoginPage";
+import MovieDetails from "./components/MovieList/MovieDetails";
 import { AuthProvider, useAuth } from "../Context/AuthContext";
 import { ThemeProvider, useTheme } from "../Context/ThemeContext";
 import "./css/App.css";
@@ -52,11 +48,12 @@ function Main() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/settings/*" element={<SettingsPage />}>
+        <Route path="/settings" element={<SettingsPage />}>
           <Route path="account" element={<AccountPage />} />
-          <Route path="configurations" element={<div>Configurações</div>} />
+          <Route path="configurations" element={<Configuracoes />} />
         </Route>
         <Route path="/ranking" element={<MovieRanking />} />
+        <Route path="/movie/:id" element={<MovieDetails />} />
         <Route path="/movielist" element={<MovieList />} />
       </Routes>
       {location.pathname !== "/" && <Footer />}

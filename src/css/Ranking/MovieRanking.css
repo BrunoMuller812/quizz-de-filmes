@@ -1,32 +1,57 @@
+/* Lista de filmes */
+.movies-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Centralizar os cards na página */
+  gap: 2rem;
+  /* Espaçamento entre os cards */
+}
+
 /* Item do filme */
 .movie-item {
   display: flex;
   align-items: center;
   gap: 1rem;
   background-color: #f0f0f0;
-  padding: 0.5rem;
+  padding: 1rem;
+  /* Mantendo um bom espaçamento interno */
   border-radius: 8px;
-  position: relative;
   border: 3px solid #48148c;
-  /* Borda roxa */
+  /* Mantém a borda roxa */
+  max-width: 90%;
+  /* Ajusta a largura dos cards para caber na tela */
+  width: 800px;
+  /* Largura padrão */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Pequena sombra para destaque */
+  position: relative;
+  /* Para posicionamento correto da bolinha */
+}
+
+#h1-ranking {
+  margin-top: 10px;
+  text-align: center;
+  margin-bottom: 2rem;
+  /* Espaçamento inferior para separar do conteúdo */
+  font-size: 2rem;
+  /* Tamanho da fonte */
+  /* Mantendo o destaque roxo */
 }
 
 /* Círculo da numeração do ranking */
 .ranking-number {
   position: absolute;
   top: -12px;
-  /* Sobrepor à quina */
+  /* Posicionado relativo ao container */
   left: -12px;
-  /* Ajustar para que fique fora do container */
+  /* Alinhamento à esquerda do card */
   width: 50px;
-  /* Aumentar o tamanho */
   height: 50px;
-  /* Aumentar o tamanho */
   background-color: #48148c;
   color: white;
   font-weight: bold;
   font-size: 1.5rem;
-  /* Aumentar o tamanho da fonte */
   display: flex;
   align-items: center;
   justify-content: center;

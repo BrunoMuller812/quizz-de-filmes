@@ -44,14 +44,14 @@ const Cards = () => {
         <Link to="/ranking" className={`${styles.card} ${styles.linkContainer}`}>
           <h2>RANKING DE FILMES</h2>
           <img
-            src="src/assets/ListaDeFilmsIMG.png"
+            src="src/assets/RankingIMG.png"
             alt="Imagem Ranking"
             className={styles.cardsIMG}
           />
           <div className={styles.cardDescription}>
             <span>Confira os filmes mais bem avaliados.</span>
             <p>
-              Explore os filmes mais populares e melhor avaliados por outros
+              Explore e descubra os filmes mais populares e melhor avaliados por outros
               usuários.
             </p>
           </div>

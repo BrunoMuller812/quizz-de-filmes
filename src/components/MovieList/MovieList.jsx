@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../Context/AuthContext";
-import Comments from "./Comments";
 import styles from "/src/css/ListCSS/MovieList.module.css";
 
 const MovieList = () => {
   const apiKey = "f024c47f63aa01f439f0f7fc51d6d0d8";
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
+
   const [movies, setMovies] = useState(() =>
     JSON.parse(localStorage.getItem(`${currentUser}-movies`)) || []
   );
@@ -135,12 +137,17 @@ const MovieList = () => {
                     </span>
                   ))}
                 </div>
-                <Comments movieId={movie.id} currentUser={currentUser} />
+                <button
+                  className={styles.detailButton}
+                  onClick={() => navigate(`/movie/${movie.id}`)}
+                >
+                  Ver detalhes
+                </button>
                 <button
                   className={styles.removeButton}
                   onClick={() => removeMovie(movie.id)}
                 >
-                  Remover
+                  Remover da lista
                 </button>
               </div>
             ))}

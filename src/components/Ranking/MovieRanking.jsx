@@ -28,11 +28,16 @@ const MovieRanking = () => {
                 alt={movie.title}
                 className="movie-poster"
               />
-              <div className="movie-info">
-                <h2 className="movie-title">{movie.title}</h2>
-                <p className="movie-rating">Nota: {movie.vote_average}</p>
+              <div className="movie-content">
+                <div className="movie-info">
+                  <h2 className="movie-title">{movie.title}</h2>
+                  <p className="movie-rating">Nota: {movie.vote_average}</p>
+                </div>
+                <div className="movie-divider"></div>
+                <p className="movie-summary">{movie.overview || "Resumo indisponível."}</p>
               </div>
             </li>
+
           ))}
         </ul>
       )}

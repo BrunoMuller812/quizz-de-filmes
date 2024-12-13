@@ -4,22 +4,34 @@ import styles from "/src/css/SettingsCSS/accountPage.module.css";
 
 export default function AccountPage() {
     const { currentUser } = useAuth();
+    const defaultAvatar = "/src/assets/profile.png"; // Caminho para a foto padrão
     const [displayName, setDisplayName] = useState(
         localStorage.getItem(`${currentUser}_displayName`) || currentUser
     );
     const [avatarUrl, setAvatarUrl] = useState(
-        localStorage.getItem(`${currentUser}_avatar`) || ""
+        localStorage.getItem(`${currentUser}_avatar`) || defaultAvatar
+    );
+    const [bio, setBio] = useState(
+        localStorage.getItem(`${currentUser}_bio`) || ""
     );
 
     const handleSave = () => {
         localStorage.setItem(`${currentUser}_displayName`, displayName);
         localStorage.setItem(`${currentUser}_avatar`, avatarUrl);
+        localStorage.setItem(`${currentUser}_bio`, bio);
         alert("Informações salvas com sucesso!");
     };
 
     return (
         <div className={styles.accountPage}>
-            <h2>Editar Perfil</h2>
+            <div className={styles.profileSection}>
+                <img
+                    src={avatarUrl || defaultAvatar}
+                    alt="Avatar do usuário"
+                    className={styles.avatar}
+                />
+                <h2>{displayName}</h2>
+            </div>
             <div className={styles.form}>
                 <label>
                     Nome de exibição:
@@ -35,6 +47,15 @@ export default function AccountPage() {
                         type="text"
                         value={avatarUrl}
                         onChange={(e) => setAvatarUrl(e.target.value)}
+                    />
+                </label>
+                <label>
+                    Biografia:
+                    <textarea
+                        value={bio}
+                        onChange={(e) => setBio(e.target.value)}
+                        placeholder="Escreva algo sobre você..."
+                        rows="5"
                     />
                 </label>
                 <button onClick={handleSave} className={styles.saveButton}>
